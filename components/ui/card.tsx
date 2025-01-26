@@ -1,50 +1,84 @@
-import { Button } from "./button";
-import Image from "next/image";
-interface CardProps {
-    title: string;
-    description: string;
-    completedSteps: number;
-    totalSteps: number;
-}
+import { cn } from "@/lib/utils";
+import { forwardRef } from "react";
 
-export default function Card({ title, description, completedSteps, totalSteps }: CardProps) {
-    const progressPercentage = Math.min((completedSteps / totalSteps) * 100, 100);
-    return (
-        <div className="w-full h-60 rounded-lg p-2 border-2 border-[#27272a] bg-[#09090b] text-white grid grid-cols-2">
-            <div className=" flex flex-col justify-around">
-                <div>
-        <h3>{title}</h3>
-        <small>{description}</small>
-        </div>
-<div>
-<div className="w-4/5 relative max-w-md  ">
-      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-        <div className="h-full bg-green-500 rounded-full" style={{ width: `${progressPercentage}%` }}>
-            <div className="text-sm text-center text-gray-700 font-medium">
-        {completedSteps} / {totalSteps} 
-        <div className="absolute right-[-20] top-[-2]">
-        <Image src='/trophy.png' alt="trophy" width={20} height={20} className="filter invert"  />
+const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        className
+      )}
+      {...props}
+    />
+  )
+);
+Card.displayName = "Card";
 
-        </div>
-      </div>
-        </div>
-      </div>
+const CardHeader = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+));
+CardHeader.displayName = "CardHeader";
 
-    </div>
-</div>
+const CardTitle = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+));
+CardTitle.displayName = "CardTitle";
 
-        <Button>Continue</Button>
-            </div>
-            <div className="flex flex-col items-center justify-around">
-                <div className="bg-white rounded-2xl w-4/5 h-10 text-[#09090b] p-2">
-                <p>
-                Quote
-                </p>
-                </div>
-                <div>
-                <Image src='/mortarboard.png' alt="trophy" width={80} height={80} className="filter invert"  />
-                </div>
-            </div>
-        </div>
-    )
-}
+const CardDescription = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+));
+CardDescription.displayName = "CardDescription";
+
+const CardContent = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+));
+CardContent.displayName = "CardContent";
+
+const CardFooter = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+));
+CardFooter.displayName = "CardFooter";
+
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+};

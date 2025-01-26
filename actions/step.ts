@@ -11,6 +11,8 @@ import { Step } from "@prisma/client";
 import { generateText } from "ai";
 import { redirect } from "next/navigation";
 
+export const maxDutation = 60;
+
 export async function getStepById(stepId: string) {
   try {
     const { userId } = await auth();

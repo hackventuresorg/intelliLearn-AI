@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,7 +6,51 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  clearkId String @unique
+
+  clerkId String @unique
+  email   String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Goal {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title       String
+  description String
+  deadline    DateTime
+
+  steps Step[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum StepStatus {
+  ONGOING
+  DELAYED
+  COMPLETED
+}
+
+model Step {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title       String
+  description String
+  completeBy  DateTime
+  quote       String
+  content     String?
+  order       Float
+
+  status StepStatus @default(ONGOING)
+
+  goal   Goal   @relation(fields: [goalId], references: [id])
+  goalId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

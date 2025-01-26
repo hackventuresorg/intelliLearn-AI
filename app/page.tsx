@@ -46,7 +46,7 @@ export default async function Home() {
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center text-center">
+        <div className="flex items-center justify-center text-center flex-col gap-2">
           <p>You have not created any goals yet.</p>
           <Link
             href="/new-goal"

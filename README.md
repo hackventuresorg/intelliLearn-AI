@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IntelliLearn-AI
 
-## Getting Started
+**IntelliLearn-AI** is an AI-powered goal planner designed to help users break down their objectives into actionable steps. Whether you're aiming to complete a course, learn a skill, or accomplish a personal milestone, IntelliLearn-AI generates a personalized roadmap with tailored steps, resources, and motivational content to keep you on track.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Personalized Goal Planning**: Define your goal and let IntelliLearn-AI generate step-by-step guidance.
+- **Actionable Steps**: Each step comes with resources, tips, and motivational content.
+- **Dynamic Content**: Get relevant links, fun facts, and tips for every step.
+- **Duolingo-Inspired Design**: A user-friendly interface with progress tracking and step visualization.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 How It Works
 
-## Learn More
+1. **Set a Goal**: Enter a title, description, and deadline for your goal.
+2. **Generate Steps**: IntelliLearn-AI breaks down your goal into manageable steps with timestamps.
+3. **Stay Motivated**: Explore curated resources, quotes, and fun facts for each step.
+4. **Track Progress**: Mark steps as complete and stay on track toward your goal.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: [Next.js](https://nextjs.org/) for a dynamic, SEO-friendly user interface.
+- **Backend**: Prisma with a MongoDB database for efficient data handling.
+- **AI Integration**: OpenAI API to generate steps and resources.
+- **Styling**: Tailwind CSS for modern and responsive design.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌟 Challenges
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Structuring AI prompts for relevant step generation.
+- Designing a user-friendly interface inspired by Duolingo.
+
+---
+
+## 🔮 What's Next
+
+- Add progress tracking visuals to enhance the user experience.
+- Introduce collaborative goal planning for teams or groups.
+- Expand AI capabilities to include progress analysis and suggestions.
+- Mobile app development for on-the-go goal planning.
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- MongoDB
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/IntelliLearn-AI.git
+   cd IntelliLearn-AI
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Set up your environment variables:
+   Create a .env file with the following:
+
+   ```bash
+   DATABASE_URL="mongodb://localhost:27017/intelli-ai"
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY =
+   CLERK_SIGNING_SECRET=
+   OPENAI_API_KEY=
+   ```
+
+4. Generate prisma client
+   ```bash
+   pnpm db:generate
+   ```

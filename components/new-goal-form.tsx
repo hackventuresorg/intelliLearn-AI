@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { createNewGoal } from "@/actions/goal";
 import { goalSchema, GoalSchema } from "@/schema/goal";
+import { useRouter } from "next/navigation";
 
 type NewGoalFormProps = {
   className?: string;
@@ -33,6 +34,7 @@ type NewGoalFormProps = {
 
 export default function NewGoalForm({ className, style }: NewGoalFormProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<GoalSchema>({
     resolver: zodResolver(goalSchema),
@@ -46,7 +48,10 @@ export default function NewGoalForm({ className, style }: NewGoalFormProps) {
   const onSubmit = (values: GoalSchema) => {
     setIsLoading(true);
     createNewGoal(values)
-      .then(() => {})
+      .then((newGoal) => {
+        form.reset();
+        router.replace(`/goal/${newGoal.id}`);
+      })
       .catch(() => {})
       .finally(() => {
         setIsLoading(false);
@@ -123,20 +128,15 @@ export default function NewGoalForm({ className, style }: NewGoalFormProps) {
                     selected={field.value}
                     onSelect={(date) => field.onChange(date)}
                     disabled={(date) => date < new Date()}
-                    initialFocus
                   />
                 </PopoverContent>
               </Popover>
-              <FormMessage className="text-red-500" />
+              <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button
-          disabled={isLoading}
-          type="submit"
-          className="w-full hover:bg-blue-700 transition-colors duration-300"
-        >
+        <Button loading={isLoading} className="w-full">
           Create Task
         </Button>
       </form>

@@ -17,7 +17,7 @@ export async function createNewGoal(goal: GoalSchema) {
 
   const steps = await generateStepsWithAi(goal);
 
-  await prisma.goal.create({
+  const createdGoal = await prisma.goal.create({
     data: {
       title: goal.title,
       description: goal.description,
@@ -35,7 +35,7 @@ export async function createNewGoal(goal: GoalSchema) {
     },
   });
 
-  return { success: true };
+  return { id: createdGoal.id };
 }
 
 export async function getUserGoals() {

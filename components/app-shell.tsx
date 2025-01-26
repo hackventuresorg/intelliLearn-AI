@@ -26,6 +26,19 @@ const NAV_ITEMS = [
 ];
 
 export function AppShell({ className, style, children }: AppShellProps) {
+  const divs = [];
+  for (let i = 0; i < 9; i++) {
+    divs.push(
+      <div className="flex justify-between h-16 rounded-lg p-2 items-center hover:bg-[#D8FFB9] cursor-pointer" key={i}>
+            <div className="flex items-center gap-2">
+            <p>{i}</p>
+            <div className="h-12 w-12 bg-red-400 rounded-full"></div>
+            <p>Shielf Infire</p>
+            </div>
+            <p>200xp</p>
+          </div>
+    )
+  }
   return (
     <div
       className={cn("grid md:grid-cols-12 overflow-hidden h-screen", className)}
@@ -50,7 +63,14 @@ export function AppShell({ className, style, children }: AppShellProps) {
         </div>
       </div>
       <div className="overflow-auto md:col-span-7">{children}</div>
-      <div className="md:col-span-3">Leaderboard</div>
+      <div className="md:col-span-3">
+        {/* leaderboard */}
+        <h2 className="text-center font-bold text-2xl text-[#292929]">Division Or</h2>
+        <p className="text-[#292929] text-center">the first 8 regiment the upper division</p>
+        <div className="flex flex-col w-full  p-2 mr-2">
+          {divs}
+        </div>
+      </div>
     </div>
   );
 }

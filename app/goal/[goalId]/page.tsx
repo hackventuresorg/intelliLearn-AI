@@ -3,14 +3,10 @@ import GoalSteps from "@/components/goal-steps";
 import { Separator } from "@/components/ui/separator";
 
 type GoalDetailsProps = {
-  params: { goalId: string };
+  params: Promise<{ goalId: string }>;
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<GoalDetailsProps["params"]>;
-}) {
+export async function generateMetadata({ params }: GoalDetailsProps) {
   const { goalId } = await params;
   const goal = await getGoalById(goalId);
 
@@ -21,13 +17,12 @@ export async function generateMetadata({
 }
 
 export default async function GoalDetails({ params }: GoalDetailsProps) {
-  const goal = await getGoalById(params.goalId);
+  const { goalId } = await params;
+  const goal = await getGoalById(goalId);
 
   if (!goal) {
     return (
-      <div className="p-4 text-center">
-        No goal found with id {params.goalId}.
-      </div>
+      <div className="p-4 text-center">No goal found with id {goalId}.</div>
     );
   }
 

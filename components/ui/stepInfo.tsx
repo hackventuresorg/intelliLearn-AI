@@ -1,12 +1,12 @@
 interface StepInfoProps {
-    description: string;
-    completedBy?: string;
+  description: string;
+  completedBy?: string;
 }
 
-export default function StepInfo({description, completedBy}: StepInfoProps) {
- return (
+export default function StepInfo({ description }: StepInfoProps) {
+  return (
     <div className="w-24 h-32 bg-white text-[#292929]">
-        <p>{description}</p>
+      <p>{description}</p>
     </div>
- )
+  );
 }

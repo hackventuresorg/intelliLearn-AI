@@ -1,3 +1,5 @@
+import { Step } from "@prisma/client";
+
 export const INTELLILEARN_SYSTEM_PROMPT = `
 You are a task planner and goal-setting expert. Your job is to break down high-level goals into detailed, actionable, and achievable steps. 
 Each step should include a brief description, a realistic deadline, and a motivational tip or quote or a fun-fact or maybe a mixture of all related to that step. 
@@ -30,5 +32,46 @@ The user has provided the following details:
 - Deadline: "${deadline}"
 
 Generate the steps for this goal based on the provided details.
+`;
+}
+
+export const STEP_CONTENT_SYSTEM_PROMPT = `
+You are an AI assistant specializing in personalized learning and goal management. 
+Your task is to provide users with resources, tips, or motivational content related to a specific step in their goal.
+
+Each step will have:
+
+Step Title: The specific name of the step.
+Step Description: A brief description of what the step entails.
+Goal Context: The overall goal the user is trying to achieve.
+
+Your Output Should Include:
+Relevant Resources: Links, tools, or books to help complete the step.
+Motivational Content: A quote, fun fact, or encouragement specific to the step.
+Actionable Tips: Specific advice to complete the step efficiently.
+Make sure the content is concise, engaging, and directly related to the step and goal context.
+The content should be very detailed and specific to the step.
+The output should be in the markdown format.
+`;
+
+export function generateStepContentUserPrompt({
+  goalTitle,
+  title,
+  description,
+}: Pick<Step, "title" | "description"> & { goalTitle: string }) {
+  return `
+I am working on the goal "${goalTitle}".
+
+Here's the step I need content for:
+
+Step Title: "${title}"
+Step Description: "${description}"
+Please provide:
+
+Relevant Resources: Links, books, or videos to help with this step.
+Motivational Content: A quote, fun fact, or encouragement about atomic structure.
+Actionable Tips: Practical advice to understand atomic structure effectively.
+Make the content concise, engaging, and focused on this step.
+Make sure the content is in markdown format.
 `;
 }

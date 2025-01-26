@@ -49,7 +49,7 @@ export function AppShell({ className, style, children }: AppShellProps) {
           ))}
         </div>
       </div>
-      <div className="overflow-auto md:col-span-7 scrollbar-thin">
+      <div className="overflow-auto md:col-span-7 scrollbar-thin border-r-2">
         {children}
       </div>
       <div className="md:col-span-3 p-4">

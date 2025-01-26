@@ -1,11 +1,8 @@
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import { AppShell } from "@/components/app-shell";
+
 import "./globals.css";
+
 export default function RootLayout({
   children,
 }: {
@@ -15,7 +12,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          {children}
+          <AppShell>{children}</AppShell>
         </body>
       </html>
     </ClerkProvider>

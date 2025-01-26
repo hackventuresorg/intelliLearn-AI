@@ -1,7 +1,29 @@
+"use server";
+
+import { prisma } from "@/lib/db";
 import { generateStepsPrompt, INTELLILEARN_SYSTEM_PROMPT } from "@/lib/prompt";
 import { openai } from "@ai-sdk/openai";
+import { auth } from "@clerk/nextjs/server";
 import { generateObject } from "ai";
+import { redirect } from "next/navigation";
 import { z } from "zod";
+
+export async function getUserGoals() {
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      throw new Error("Unauthozied");
+    }
+
+    const goals = await prisma.goal.findMany({
+      where: { createdBy: { clerkId: userId } },
+    });
+
+    return goals;
+  } catch {
+    throw redirect("/sign-in");
+  }
+}
 
 const stepsSchema = z.object({
   title: z

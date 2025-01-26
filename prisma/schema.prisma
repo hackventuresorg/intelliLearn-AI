@@ -13,6 +13,8 @@ model User {
   clerkId String @unique
   email   String @unique
 
+  goals Goal[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -24,7 +26,9 @@ model Goal {
   description String
   deadline    DateTime
 
-  steps Step[]
+  steps     Step[]
+  createdBy User   @relation(fields: [userId], references: [id])
+  userId    String @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

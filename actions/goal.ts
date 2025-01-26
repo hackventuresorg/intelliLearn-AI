@@ -55,6 +55,22 @@ export async function getUserGoals() {
   }
 }
 
+export async function getGoalById(id: string) {
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    return prisma.goal.findFirst({
+      where: { id, createdBy: { clerkId: userId } },
+      include: { steps: true },
+    });
+  } catch {
+    throw redirect("/sign-in");
+  }
+}
+
 export async function generateStepsWithAi(goal: GoalSchema) {
   const { object } = await generateObject({
     model: openai("gpt-4-turbo"),

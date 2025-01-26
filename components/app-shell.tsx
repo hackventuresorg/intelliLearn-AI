@@ -26,22 +26,6 @@ const NAV_ITEMS = [
 ];
 
 export function AppShell({ className, style, children }: AppShellProps) {
-  const divs = [];
-  for (let i = 0; i < 9; i++) {
-    divs.push(
-      <div
-        className="flex justify-between h-16 rounded-lg p-2 items-center hover:bg-[#D8FFB9] cursor-pointer"
-        key={i}
-      >
-        <div className="flex items-center gap-2">
-          <p>{i}</p>
-          <div className="h-12 w-12 bg-red-400 rounded-full"></div>
-          <p>Shielf Infire</p>
-        </div>
-        <p>200xp</p>
-      </div>
-    );
-  }
   return (
     <div
       className={cn("grid md:grid-cols-12 overflow-hidden h-screen", className)}
@@ -68,16 +52,30 @@ export function AppShell({ className, style, children }: AppShellProps) {
       <div className="overflow-auto md:col-span-7 scrollbar-thin">
         {children}
       </div>
-      <div className="md:col-span-3">
-        {/* leaderboard */}
-        <h2 className="text-center font-bold text-2xl text-[#292929]">
-          Division Or
-        </h2>
-        <p className="text-[#292929] text-center">
+      <div className="md:col-span-3 p-4">
+        <h2 className="text-center font-bold text-2xl">Division or</h2>
+        <p className="text-center mb-4">
           the first 8 regiment the upper division
         </p>
-        <div className="flex flex-col w-full  p-2 mr-2">{divs}</div>
+        <div className="flex flex-col w-full">
+          {Array.from({ length: 9 }).map((_, index) => (
+            <LoaderboardUser key={index} position={index + 1} />
+          ))}
+        </div>
       </div>
+    </div>
+  );
+}
+
+function LoaderboardUser({ position }: { position: number }) {
+  return (
+    <div className="flex justify-between h-16 rounded-lg items-center hover:bg-green-100 cursor-pointer px-4 py-2">
+      <div className="flex items-center gap-2">
+        <p>{position}</p>
+        <div className="size-12 bg-red-400 rounded-full" />
+        <p>Shielf Infire</p>
+      </div>
+      <p>200xp</p>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export const goalSchema = z.object({
   description: z
     .string()
     .min(10, { message: "Description must be at least 10 characters" }),
-  completeBy: z.date().refine((date) => date > new Date(), {
+  completeBy: z.coerce.date().refine((date) => date > new Date(), {
     message: "Completion date must be in the future",
   }),
 });

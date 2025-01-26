@@ -23,7 +23,6 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { createNewGoal } from "@/actions/goal";
 import { goalSchema, GoalSchema } from "@/schema/goal";
 import { useRouter } from "next/navigation";
 
@@ -47,12 +46,21 @@ export default function NewGoalForm({ className, style }: NewGoalFormProps) {
 
   const onSubmit = (values: GoalSchema) => {
     setIsLoading(true);
-    createNewGoal(values)
-      .then((newGoal) => {
+    fetch("/api/goal/new", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((newGoal: { id: string }) => {
         form.reset();
         router.replace(`/goal/${newGoal.id}`);
       })
-      .catch(() => {})
+      .catch(() => {
+        alert("Something went wrong");
+      })
       .finally(() => {
         setIsLoading(false);
       });

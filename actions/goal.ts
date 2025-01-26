@@ -9,8 +9,6 @@ import { auth } from "@clerk/nextjs/server";
 import { generateObject } from "ai";
 import { redirect } from "next/navigation";
 
-export const maxDutation = 60;
-
 export async function createNewGoal(goal: GoalSchema) {
   const { userId } = await auth();
   if (!userId) {
